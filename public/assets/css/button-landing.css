@@ -1,0 +1,36 @@
+/* styles.css */
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; /* Wrap buttons to the next line if needed */
+    margin: 20px;
+}
+
+.landing-btn {
+    padding: 10px 100px;
+    font-size: 16px;
+    margin: 10px;
+    border: none;
+    background-color: #fffb00;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.landing-btn:hover {
+    background-color: #fdfa4cea;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .landing-btn {
+        width: 80%; /* Adjust width as needed */
+        margin: 5px 0;
+    }
+}
