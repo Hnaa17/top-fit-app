@@ -17,7 +17,7 @@
                                                 <img src="assets/images/logo-light.png" alt="" height="18">
                                             </a> --}}
                                             <a href="/" class="logo-lg d-block">
-                                                <p class="fs-22 fw-semibold" style="color: #fdfa4cea">Top Fit</p>
+                                                <p class="fs-22 fw-semibold" style="color: #f7ea39c7">Top Fit</p>
                                             </a>
                                         </div>
                                         <div class="mt-auto">
@@ -79,14 +79,14 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <button class="btn btn-warning w-100 text-dark fw-semibold" type="submit">Login</button>
+                                                <button class="btn w-100 text-dark fw-semibold" style="background-color: #f7ea39c7" type="submit">Login</button>
                                             </div>
 
                                         </form>
                                     </div>
 
                                     <div class="mt-5 text-center">
-                                        <p class="mb-0">Don't have an account ? <a href="/register-page" class="fw-semibold text-warning text-decoration-underline"> Register</a> </p>
+                                        <p class="mb-0">Don't have an account ? <a href="/register-page" class="fw-semibold text-decoration-underline" style="color: #dacf3bc7"> Register</a> </p>
                                     </div>
                                 </div>
                             </div>
