@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthMemberController;
+use App\Http\Controllers\MemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,13 @@ use App\Http\Controllers\AuthMemberController;
 */
 
 Route::get('/', [AuthMemberController::class, 'landing']);
+
 Route::get('/member', [AuthMemberController::class, 'loginForm']);
 Route::post('/member-login-post', [AuthMemberController::class, 'loginPost']);
 
 Route::get('/register-page', [AuthMemberController::class, 'showForm']);
-Route::post('/register-page', [AuthMemberController::class, 'submitForm']);
+Route::post('/register-post', [AuthMemberController::class, 'submitForm']);
 
-Route::post('/register-post', [AuthMemberController::class, 'regisPost'])->name('member.register');
+Route::get('/home', [MemberController::class, 'home']);
 
 Route::get('/logout', [AuthMemberController::class, 'logout']);

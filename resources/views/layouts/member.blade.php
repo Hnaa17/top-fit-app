@@ -27,6 +27,9 @@
     <!-- button Css-->
     <link href="{{ asset('assets/css/button-landing.css') }}" rel="stylesheet" type="text/css" />
 
+    {{-- Sweet Alert --}}
+    <link href="{{ asset('/assets/sweetAlert/sweetalert2.css') }}"/>
+
     <style>
         .step {
             display: none;
@@ -76,6 +79,9 @@
     <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
+
+    {{-- Sweet Alert --}}
+    <script src="{{ asset('/assets/sweetAlert/sweetalert2.all.min.js') }}"></script>
 
     <!-- profile-setting init js -->
     <script src="assets/js/pages/profile-setting.init.js"></script>
