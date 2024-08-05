@@ -1,4 +1,4 @@
-@extends('layouts.member')
+@extends('layouts.auth')
 
 @section('container')
 <div class="auth-page-content overflow-hidden pt-lg-5">

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Member;
+use Exception;
 
 class AuthMemberController extends Controller
 {
@@ -57,7 +58,7 @@ class AuthMemberController extends Controller
             //     return redirect('/dashboard');
             // }
 
-            return redirect('/home');
+            return redirect('/home')->with('success', 'Selamat Datang!!');
         }
     }
 
@@ -109,6 +110,18 @@ class AuthMemberController extends Controller
             return redirect('/member')->with('success', 'Proses Register Berhasil, Silakan Login');
         } else {
             return redirect('/member')->with('error', 'Proses Register Gagal, Silakan Coba Lagi');
+        }
+    }
+
+    public function logout()
+    {
+        try {
+            Session::flush();
+            return redirect('/')->with('success', 'Sampai Jumpa!!');
+
+        } catch (Exception $e) {
+            Session::flush();
+            return redirect('/')->with('success', 'Sampai Jumpa!!');
         }
     }
 }

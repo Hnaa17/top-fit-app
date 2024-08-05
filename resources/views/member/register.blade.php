@@ -1,4 +1,4 @@
-@extends('layouts.member')
+@extends('layouts.auth')
 
 @section('container')
     <!-- auth-page content -->
@@ -92,23 +92,23 @@
                                 <div class="col-xl-10 offset-xl-1">
                                     <div class="step">
                                         <div class="form-group">
-                                            <label for="bust" class="col-form-label fw-bold">Lingkar Dada <small class="text-muted"> (cm)</small>  <small class="text-danger"> *</small></label>
-                                            <input type="number" id="bust" name="bust" class="form-control" placeholder="Tulis angka saja. Contoh : 90" required>
+                                            <label for="bust" class="col-form-label fw-bold">Lingkar Dada <small class="text-muted"> (cm)</small></label>
+                                            <input type="number" id="bust" name="bust" class="form-control" placeholder="Tulis angka saja. Contoh : 90">
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="abdomen" class="col-form-label fw-bold">Lingkar Perut <small class="text-muted"> (cm)</small> <small class="text-danger"> *</small></label>
-                                            <input type="number" id="abdomen" name="abdomen" class="form-control" placeholder="Tulis angka saja. Contoh : 70" required>
+                                            <label for="abdomen" class="col-form-label fw-bold">Lingkar Perut <small class="text-muted"> (cm)</small></label>
+                                            <input type="number" id="abdomen" name="abdomen" class="form-control" placeholder="Tulis angka saja. Contoh : 70">
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="hip" class="col-form-label fw-bold">Lingkar Pinggul <small class="text-muted"> (cm)</small> <small class="text-danger"> *</small></label>
-                                            <input type="number" id="hip" name="hip" class="form-control" placeholder="Tulis angka saja. Contoh : 90" required>
+                                            <label for="hip" class="col-form-label fw-bold">Lingkar Pinggul <small class="text-muted"> (cm)</small></label>
+                                            <input type="number" id="hip" name="hip" class="form-control" placeholder="Tulis angka saja. Contoh : 90">
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="thigh" class="col-form-label fw-bold">Lingkar Paha <small class="text-muted"> (cm)</small> <small class="text-danger"> *</small></label>
-                                            <input type="number" id="thigh" name="thigh" class="form-control" placeholder="Tulis angka saja. Contoh : 50" required>
+                                            <label for="thigh" class="col-form-label fw-bold">Lingkar Paha <small class="text-muted"> (cm)</small></label>
+                                            <input type="number" id="thigh" name="thigh" class="form-control" placeholder="Tulis angka saja. Contoh : 50">
                                         </div>
 
                                         <div class="d-flex mt-4" style="justify-content: space-between">
@@ -184,6 +184,7 @@
 
 @push('script')
     <script>
+        // Step
         let currentStep = 0;
         const steps = $(".step");
 
@@ -191,10 +192,26 @@
             steps.removeClass("active").eq(step).addClass("active");
         }
 
+        function validateInputs() {
+            let isValid = true;
+            steps.eq(currentStep).find('input[required], select[required]').each(function() {
+                if (!this.value) {
+                    isValid = false;
+                    $(this).addClass('is-invalid');
+                    alert(`Kolom ${$(this).attr('name')} harus diisi.`);
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+            return isValid;
+        }
+
         function nextStep() {
-            if (currentStep < steps.length - 1) {
-                currentStep++;
-                showStep(currentStep);
+            if (validateInputs()) {
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
             }
         }
 
@@ -208,7 +225,7 @@
         // Show the first step initially
         showStep(currentStep);
 
-
+        // Password & Confirm Password
         document.addEventListener("DOMContentLoaded", function() {
             const form = document.querySelector("form");
             const passwordInput = document.getElementById("password");

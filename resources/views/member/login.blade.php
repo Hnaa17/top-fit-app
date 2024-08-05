@@ -1,4 +1,4 @@
-@extends('layouts.member')
+@extends('layouts.auth')
 
 @section('container')
     <!-- auth-page content -->

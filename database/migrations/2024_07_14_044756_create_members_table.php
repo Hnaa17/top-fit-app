@@ -19,15 +19,15 @@ return new class extends Migration
             $table->string('phone_number');
             $table->integer('weight');
             $table->integer('height');
-            $table->integer('bust');
-            $table->integer('abdomen');
-            $table->integer('hip');
-            $table->integer('thigh');
+            $table->integer('bust')->nullable();
+            $table->integer('abdomen')->nullable();
+            $table->integer('hip')->nullable();
+            $table->integer('thigh')->nullable();
             $table->string('email');
             $table->string('password');
             $table->string('img_name');
             $table->string('img_path');
-            $table->boolean('verified')->default(false);
+            $table->enum('activated', ['pending_verification', 'pending_approval', 'active', 'inactive'])->default('pending_verification');
             $table->timestamps();
         });
     }

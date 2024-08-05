@@ -2,14 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Session;
 
-class RedirectIfAuthenticated
+class CheckAuth
 {
     /**
      * Handle an incoming request.
@@ -18,12 +16,11 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Session::has('name') && Session::has('role_code')){
-            return redirect('/adm-home'); // Redirect to the home page or any other authenticated page
-        } else if(Session::has('name')){
-            return redirect('/home');
+        if(Session::has('name')){
+            return $next($request);
         }
 
-        return $next($request);
+        // return view('landing.index');
+        return redirect('/');
     }
 }
