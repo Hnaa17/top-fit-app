@@ -34,31 +34,33 @@ class AuthMemberController extends Controller
         if($validator->fails()){
             return redirect('/member')->with('error', 'Login Gagal!');
         }else{
-            $member = Member::where('name', $username)->first();
+            $member = Member::select('members.id', 'members.name', 'members.password', 'members.email', 'members.img_path')
+                ->where('name', '=', $username)
+                ->first();
 
-            if(!$member){
+            if($member == NULL){
                 return redirect('/member')->with('error', 'Username Tidak Terdaftar!');
+            } else {
+                $isValidPassword = Hash::check($password, $member->password);
+
+                if(!$isValidPassword){
+                    return redirect('/member')->with('error', 'Kata Sandi Salah!');
+                }
+
+                $req->session()->regenerate();
+                Session::put('id', $member->id);
+                Session::put('name', $member->name);
+                Session::put('email', $member->email);
+                Session::put('img_path', $member->img_path);
+
+                // if($member->role_code == 1 || $member->role_code == 2){
+                //     return redirect('/dashboard-adm');
+                // }else{
+                //     return redirect('/dashboard');
+                // }
+
+                return redirect('/home')->with('success', 'Selamat Datang!!');
             }
-
-            $isValidPassword = Hash::check($password, $member->password);
-
-            if(!$isValidPassword){
-                return redirect('/member')->with('error', 'Kata Sandi Salah!');
-            }
-
-            $req->session()->regenerate();
-            Session::put('id', $member->id);
-            Session::put('name', $member->name);
-            Session::put('email', $member->email);
-            Session::put('img_path', $member->img_path);
-
-            // if($member->role_code == 1 || $member->role_code == 2){
-            //     return redirect('/dashboard-adm');
-            // }else{
-            //     return redirect('/dashboard');
-            // }
-
-            return redirect('/home')->with('success', 'Selamat Datang!!');
         }
     }
 
