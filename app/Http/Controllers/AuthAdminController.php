@@ -28,31 +28,33 @@ class AuthAdminController extends Controller
         if($validator->fails()){
             return redirect('/admin')->with('error', 'Login Gagal!');
         }else{
-            $user = User::where('name', $username)->first();
+            $user = User::select('users.id', 'users.name', 'users.password', 'users.email', 'users.role_code')
+                ->where('name', '=', $username)
+                ->first();
 
-            if(!$user){
+            if($user == NULL){
                 return redirect('/admin')->with('error', 'Username Tidak Terdaftar!');
+            } else {
+                $isValidPassword = Hash::check($password, $user->password);
+
+                if(!$isValidPassword){
+                    return redirect('/admin')->with('error', 'Kata Sandi Salah!');
+                }
+
+                $req->session()->regenerate();
+                Session::put('id', $user->id);
+                Session::put('name', $user->name);
+                Session::put('email', $user->email);
+                Session::put('role_code', $user->role_code);
+
+                // if($user->role_code == '01' || $user->role_code == '02'){
+                //     return redirect('/dashboard-adm');
+                // }else{
+                //     return redirect('/dashboard-owner');
+                // }
+
+                return redirect('/adm-home')->with('success', 'Selamat Datang!!');
             }
-
-            $isValidPassword = Hash::check($password, $user->password);
-
-            if(!$isValidPassword){
-                return redirect('/admin')->with('error', 'Kata Sandi Salah!');
-            }
-
-            $req->session()->regenerate();
-            Session::put('id', $user->id);
-            Session::put('name', $user->name);
-            Session::put('email', $user->email);
-            Session::put('role_code', $user->role_code);
-
-            // if($user->role_code == '01' || $user->role_code == '02'){
-            //     return redirect('/dashboard-adm');
-            // }else{
-            //     return redirect('/dashboard-owner');
-            // }
-
-            return redirect('/adm-home')->with('success', 'Selamat Datang!!');
         }
     }
 }
